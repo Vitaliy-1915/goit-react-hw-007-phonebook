@@ -1,20 +1,13 @@
 import { useState } from 'react';
 import Button from '../Button/Button';
-// import { connect, useSelector } from 'react-redux';
-// import { addContact } from '../../redux/contacts/contacts-actions';
 import s from '../Form/Form.module.css';
 import { useAddContactMutation } from '../../redux/contactsApi';
 
 function Form({ contacts }) {
   const [addContact] = useAddContactMutation();
 
-  // const contacts = useSelector(state => state.contacts);
-  console.log(contacts);
   const [name, setName] = useState('');
   const [phone, setNumber] = useState('');
-
-  console.log(name);
-  console.log(phone);
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -42,9 +35,7 @@ function Form({ contacts }) {
     if (findContacts) {
       alert(`${name} is already in contacts`);
     } else {
-      // onSubmit({ name, number });
       addContact({ name, phone });
-      // reset();
     }
     reset();
   };
@@ -87,11 +78,5 @@ function Form({ contacts }) {
     </form>
   );
 }
-// // console.log(addContact());
-// const mapDispatchToProps = dispatch => ({
-//   onSubmit: value => dispatch(addContact(value)),
-// });
-
-// export default connect(null, mapDispatchToProps)(Form);
 
 export default Form;
