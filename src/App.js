@@ -8,7 +8,7 @@ import { useGetContactsQuery } from './redux/contactsApi';
 
 function App() {
   const [filterValue, setFilterValue] = useState('');
-  const { data, error, isLoading } = useGetContactsQuery('');
+  const { data, error, isError } = useGetContactsQuery('');
 
   const onChangeFilter = e => {
     setFilterValue(e.currentTarget.value);
@@ -24,9 +24,14 @@ function App() {
     <div className="App">
       <PhoneBookTitle title="Phonebook" />
       {data && <Form contacts={data} />}
-      <PhoneBookTitle title="Contacts" />
+      {data && <PhoneBookTitle title="Contacts" />}
+      {isError && (
+        <p>
+          {error.data}, <br />
+          Status - {error.status}
+        </p>
+      )}
       {data && <Filter value={filterValue} onChange={onChangeFilter} />}
-
       {data && <ContactsList contacts={filterContacts(data)} />}
     </div>
   );
